@@ -50,10 +50,10 @@ function cleanTheMoney(data) {
     return {
       name: coin.name,
       abbreviation: coin.symbol,
-      price: coin.quote.EUR.price,
-      hour: coin.quote.EUR.percent_change_1h,
-      day: coin.quote.EUR.percent_change_24h,
-      week: coin.quote.EUR.percent_change_7d
+      price: Number(coin.quote.EUR.price).toFixed(2),
+      hour: Number(coin.quote.EUR.percent_change_1h).toFixed(2),
+      day: Number(coin.quote.EUR.percent_change_24h).toFixed(2),
+      week: Number(coin.quote.EUR.percent_change_7d).toFixed(2)
     };
   });
 
@@ -64,5 +64,33 @@ function cleanTheMoney(data) {
 
 function showMeTheMoney(money) {
   console.log("💲 Showing the money 💲");
-  console.log(money);
+
+  let main = document.createElement("main"),
+    mainheader = document.createElement("h1"),
+    coinlist = document.createElement("ul"),
+    rawHTML = "<ul>";
+
+  money.forEach(coin => {
+    let listitem = `<li>
+      <ul>
+      <li>${coin.abbreviation}</li>
+      <li>${coin.name}</li>
+      <li>€${coin.price}</li>
+      <ul>
+        <li>${coin.hour}%</li>
+        <li>${coin.day}%</li>
+        <li>${coin.week}%</li>
+      </ul>
+      </ul>
+    </li>`;
+
+    rawHTML += listitem;
+  });
+
+  rawHTML += "</ul>";
+
+  mainheader.innerText = "Coins";
+  main.appendChild(mainheader);
+  main.insertAdjacentHTML("beforeend", rawHTML);
+  document.body.appendChild(main);
 }
