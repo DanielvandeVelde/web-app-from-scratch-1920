@@ -1,5 +1,3 @@
-//4921adba-8213-4159-950e-35edf261684a
-
 function GetMoney(req, url) {
   return new Promise(function(resolve, reject) {
     const request = new XMLHttpRequest();
@@ -11,7 +9,10 @@ function GetMoney(req, url) {
 }
 
 routie("*", function() {
-  GetMoney("GET", "sandbox-api.coinmarketcap.com/latest")
+  GetMoney(
+    "GET",
+    "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=100&convert=USD&CMC_PRO_API_KEY=9a7aa090-0a69-4aca-8857-af28026f3b7e"
+  )
     .then(function(e) {
       const data = JSON.parse(e.target.response);
       if (data.statusCode) {
