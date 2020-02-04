@@ -17,7 +17,7 @@ function wheresTheMoneyLebowski() {
   if (localStorage.getItem("cleanCash") === null) {
     getMoney(
       "GET",
-      "https://cors-anywhere.herokuapp.com/https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=10&convert=EUR&CMC_PRO_API_KEY=9a7aa090-0a69-4aca-8857-af28026f3b7e"
+      "https://cors-anywhere.herokuapp.com/https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50&convert=EUR&CMC_PRO_API_KEY=9a7aa090-0a69-4aca-8857-af28026f3b7e"
     )
       .then(function(e) {
         const data = JSON.parse(e.target.response);
@@ -67,19 +67,23 @@ function showMeTheMoney(money) {
 
   let main = document.createElement("main"),
     mainheader = document.createElement("h1"),
-    coinlist = document.createElement("ul"),
-    rawHTML = "<ul>";
+    rawHTML = "<ul class='coinlist'>";
 
   money.forEach(coin => {
     let listitem = `<li>
-      <ul>
-      <li>${coin.abbreviation}</li>
-      <li>${coin.name}</li>
-      <li>€${coin.price}</li>
-      <ul>
-        <li>${coin.hour}%</li>
-        <li>${coin.day}%</li>
-        <li>${coin.week}%</li>
+      <ul class="coin">
+      <h2><span>${coin.abbreviation}</span>${coin.name}</h2>
+      <h3><span>price</span>€${coin.price}</h3>
+      <ul class="percentage">
+        <li class=${coin.hour > 0 ? "pos" : "neg"}><span>hour</span>${
+      coin.hour
+    }%</li>
+        <li class=${coin.day > 0 ? "pos" : "neg"}><span>day</span>${
+      coin.day
+    }%</li>
+        <li class=${coin.week > 0 ? "pos" : "neg"}><span>week</span>${
+      coin.week
+    }%</li>
       </ul>
       </ul>
     </li>`;
@@ -89,7 +93,7 @@ function showMeTheMoney(money) {
 
   rawHTML += "</ul>";
 
-  mainheader.innerText = "Coins";
+  mainheader.innerText = "Cryptocurrency";
   main.appendChild(mainheader);
   main.insertAdjacentHTML("beforeend", rawHTML);
   document.body.appendChild(main);
