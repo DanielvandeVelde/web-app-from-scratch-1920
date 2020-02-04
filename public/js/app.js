@@ -44,13 +44,18 @@ function errorHandler(error) {
 }
 
 function cleanTheMoney(data) {
+  console.log(data);
   console.log("🛁 Laundering the money 🛁");
 
   const money = data.data.map(coin => {
+    let price = Number(coin.quote.EUR.price).toFixed(2);
+    price = price.replace(".", ",");
+    price = price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
     return {
       name: coin.name,
       abbreviation: coin.symbol,
-      price: Number(coin.quote.EUR.price).toFixed(2),
+      price: price,
       hour: Number(coin.quote.EUR.percent_change_1h).toFixed(2),
       day: Number(coin.quote.EUR.percent_change_24h).toFixed(2),
       week: Number(coin.quote.EUR.percent_change_7d).toFixed(2)
