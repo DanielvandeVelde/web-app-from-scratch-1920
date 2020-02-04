@@ -9,10 +9,6 @@ function getMoney(req, url) {
   });
 }
 
-routie("*", function() {
-  wheresTheMoneyLebowski();
-});
-
 function wheresTheMoneyLebowski() {
   if (localStorage.getItem("cleanCash") === null) {
     getMoney(
@@ -103,3 +99,5 @@ function showMeTheMoney(money) {
   main.insertAdjacentHTML("beforeend", rawHTML);
   document.body.appendChild(main);
 }
+
+wheresTheMoneyLebowski();
