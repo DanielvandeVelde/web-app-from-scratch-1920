@@ -13,7 +13,7 @@ function wheresTheMoneyLebowski() {
   if (localStorage.getItem("cleanCash") === null) {
     getMoney(
       "GET",
-      "https://cors-anywhere.herokuapp.com/https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50&convert=EUR&CMC_PRO_API_KEY=9a7aa090-0a69-4aca-8857-af28026f3b7e"
+      "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50&convert=EUR&CMC_PRO_API_KEY=4921adba-8213-4159-950e-35edf261684a"
     )
       .then(function(e) {
         const data = JSON.parse(e.target.response);
@@ -71,7 +71,7 @@ function showMeTheMoney(money) {
     rawHTML = "<ul class='coinlist'>";
 
   money.forEach(coin => {
-    let listitem = `<li>
+    let listitem = `<li id="${coin.abbreviation}">
       <ul class="coin">
       <h2><span>${coin.abbreviation}</span>${coin.name}</h2>
       <h3><span>price</span>€${coin.price}</h3>
@@ -98,6 +98,50 @@ function showMeTheMoney(money) {
   main.appendChild(mainheader);
   main.insertAdjacentHTML("beforeend", rawHTML);
   document.body.appendChild(main);
+
+  let coinlist = document.getElementsByClassName("coinlist")[0].children;
+  for (let i = 0; i < coinlist.length; i++) {
+    let id = coinlist[i].id;
+    coinlist[i].addEventListener("click", function(e) {
+      clickCash(i, id);
+    });
+  }
+}
+
+function clickCash(i, id) {
+  let coinElement = document.getElementById(id);
+  if (coinElement.className === "open") {
+    console.log("closing " + id);
+    coinElement.classList.toggle("open");
+    let coinCanvas = document.getElementById(id + "Canvas");
+    coinCanvas.parentNode.removeChild(coinCanvas);
+    return;
+  }
+
+  console.log("opening " + id);
+  coinElement.classList.toggle("open");
+  getSpecificCoin(id);
+}
+
+function getSpecificCoin(coin) {
+  getMoney(
+    "GET",
+    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${coin}&tsym=EUR&limit=7&api-key=9d6d39b44ce2c90274169966fe79fe681cc7e97016d062449ebaa6631e17758e`
+  )
+    .then(function(e) {
+      const data = JSON.parse(e.target.response);
+      buildCanvas(coin, data.Data.Data);
+    })
+    .catch(error => {
+      errorHandler();
+    });
+}
+
+function buildCanvas(coin, data) {
+  let coinli = document.getElementById(coin);
+  let coinCanvas = document.createElement("canvas");
+  coinCanvas.setAttribute("id", coin + "Canvas");
+  coinli.parentElement.insertBefore(coinCanvas, coinli.nextSibling);
 }
 
 wheresTheMoneyLebowski();

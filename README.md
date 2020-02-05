@@ -29,13 +29,18 @@ The free plan is limited in [several ways](https://pro.coinmarketcap.com/feature
 - 30 requests per minute (rate limit)
 - Only access to a few endpoints and no historical data
 
+To grab the data for the mainpage which is currently 50 different coins with their price and the percentage changes in the past week or so the API requires 1 credit.
+This means in total I can request this data for the mainpage 300 times in a day before running out of credits.
+
 ## 4. Interaction
 
 ## 5. Design Patterns
 
 ## 6. Wishlist
 
-- [x] Stuff
-- [x] Dingen
-- [ ] Enzo
-- [ ] Etcetera
+- [x] Data
+- [x] localStorage
+- [ ] Details
+- [ ] Loading state
+- [ ] Maybe use routie? Although I like my current solution
+- [ ] Actually making money from crypto

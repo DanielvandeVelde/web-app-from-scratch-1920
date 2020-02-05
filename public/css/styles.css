@@ -59,8 +59,9 @@ h2 span {
   align-items: center;
   justify-content: center;
   width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
+
 .coinlist > li:hover {
   background-color: rgba(0, 0, 0, 0.1);
   transition: 0.25s;
@@ -72,8 +73,8 @@ h2 span {
 .coinlist > li:last-child:hover {
   border-radius: 1em 1em 0 0;
 }
-.coinlist > li:last-child {
-  border-bottom: none;
+.coinlist > li:first-child {
+  border-top: none;
 }
 .coin,
 .percentage {
