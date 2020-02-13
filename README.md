@@ -23,11 +23,11 @@ But most of all; making something that's actually usable and a cool portfolio pr
 
 ## 2. Actors
 
-<kbd>![Actor Diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/actor.svg "Actor diagram")</kbd>
+<kbd>![Actor Diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/actor.svg?sanitize=true "Actor diagram")</kbd>
 
 ## 3. Interaction
 
-<kbd>![Interaction diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/Interaction.svg "Interaction diagram")</kbd>
+<kbd>![Interaction diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/Interaction.svg?sanitize=true "Interaction diagram")</kbd>
 
 ## 4. API
 
