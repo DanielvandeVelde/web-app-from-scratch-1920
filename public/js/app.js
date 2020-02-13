@@ -142,6 +142,34 @@ function buildCanvas(coin, data) {
   let coinCanvas = document.createElement("canvas");
   coinCanvas.setAttribute("id", coin + "Canvas");
   coinli.parentElement.insertBefore(coinCanvas, coinli.nextSibling);
+
+  let timeArray = data.map(function(data) {
+    let time = new Date(data.time * 1000).toISOString();
+    return time;
+  });
+
+  let priceArray = data.map(function(data) {
+    let price = (data.high + data.low) / 2;
+    price = Number(price).toFixed(5);
+    return price;
+  });
+  console.log(data);
+  let allArray = data.map(function(data) {
+    let price = (data.high + data.low) / 2;
+    price = Number(price).toFixed(5);
+    let time = new Date(data.time * 1000).toISOString();
+
+    return {
+      t: time,
+      y: price
+    };
+  });
+
+  console.log(timeArray);
+  console.log(priceArray);
+  console.log(allArray);
+
+  let ctx = document.getElementById(coin + "Canvas");
 }
 
 wheresTheMoneyLebowski();
