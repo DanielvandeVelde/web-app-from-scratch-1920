@@ -9,10 +9,12 @@ I've got a [demo](https://danielvandevelde.github.io/web-app-from-scratch-1920/)
 ## Table of contents
 
 1. [Goal](#1-Goal)
-2. [Actors](#2-Actors)
-3. [Interaction](#3-Interaction)
-4. [API](#4-API)
-5. [Wishlist](#5-Wishlist)
+2. [Installation](#2-Installation)
+3. [Actors](#3-Actors)
+4. [Interaction](#4-Interaction)
+5. [API](#5-API)
+6. [Data](#6-Data)
+7. [Wishlist](#7-Wishlist)
 
 ## 1. Goal
 
@@ -21,15 +23,17 @@ The data will be requested from an API, the javascript will be in modules and th
 
 But most of all; making something that's actually usable and a cool portfolio project :-)
 
-## 2. Actors
+## 2. Installation
+
+## 3. Actors
 
 <kbd>![Actor Diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/actor.svg?sanitize=true "Actor diagram")</kbd>
 
-## 3. Interaction
+## 4. Interaction
 
 <kbd>![Interaction diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/Interaction.svg?sanitize=true "Interaction diagram")</kbd>
 
-## 4. API
+## 5. API
 
 ### Market data
 
@@ -50,7 +54,11 @@ For the historical data of a specific coin I'm using [CryptoCompare](https://min
 This is one of the few APIs I found that lets you call on specific coin data over a period of about a year without a need to pay for it.
 I will probably switch over to this one in the long run since the `/top list` endpoint also provides the needed data for the overview but only for the past 24 hours.
 
-## 5. Wishlist
+## 6. Data
+
+What I do and use.
+
+## 7. Wishlist
 
 Currently this is more a to-do list for the upcoming week :-)
 
@@ -59,9 +67,11 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] semi-details
 - [ ] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
 - [ ] Searchbar
-- [ ] Working routie (routes)
+- [x] Working routie (routes)
 - [ ] Actual details page
+- [ ] Page for big winners/losers (using .filter())
 - [ ] Modules
+- [ ] Recheck rubric if everything is there
 - [ ] Create graphs on detailspage
 - [ ] Maybe find/use a single API?
 - [ ] Loading state and/or skeleton

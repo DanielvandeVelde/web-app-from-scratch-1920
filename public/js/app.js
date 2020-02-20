@@ -9,13 +9,27 @@ function getMoney(req, url) {
   });
 }
 
+routie({
+  "coin/:coin": function(coin) {
+    getSpecificCoin(coin);
+  },
+  "": function() {
+    wheresTheMoneyLebowski();
+  }
+});
+
 function wheresTheMoneyLebowski() {
   if (localStorage.getItem("cleanCash") === null) {
-    getMoney(
-      "GET",
-      "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50&convert=EUR&CMC_PRO_API_KEY=4921adba-8213-4159-950e-35edf261684a"
-    )
-      .then(function(e) {
+    let key = "4921adba-8213-4159-950e-35edf261684a";
+    let currency = "EUR";
+    let cors = "https://cors-anywhere.herokuapp.com/";
+    let limit = "50"; //Limit to the amount of coins I'm requesting
+    let api =
+      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1";
+    let url = `${cors}${api}&limit=${limit}&convert=${currency}&CMC_PRO_API_KEY=${key}`;
+
+    getMoney("GET", url)
+      .then(e => {
         const data = JSON.parse(e.target.response);
         if (data.status.error_code) {
           console.log(data.status.error_code);
@@ -65,13 +79,18 @@ function cleanTheMoney(data) {
 
 function showMeTheMoney(money) {
   console.log("💲 Showing the money 💲");
+  if (document.body.children[1].id === "overview") {
+    console.log("removing main");
+    document.removeChild(document.body.children[2]);
+  }
 
   let main = document.createElement("main"),
     mainheader = document.createElement("h1"),
     rawHTML = "<ul class='coinlist'>";
 
   money.forEach(coin => {
-    let listitem = `<li id="${coin.abbreviation}">
+    let listitem = `<li>
+      <a href="#coin/${coin.abbreviation}">
       <ul class="coin">
       <h2><span>${coin.abbreviation}</span>${coin.name}</h2>
       <h3><span>price</span>€${coin.price}</h3>
@@ -87,6 +106,7 @@ function showMeTheMoney(money) {
     }%</li>
       </ul>
       </ul>
+      </a>
     </li>`;
 
     rawHTML += listitem;
@@ -96,64 +116,52 @@ function showMeTheMoney(money) {
 
   mainheader.innerText = "Cryptocurrency";
   main.appendChild(mainheader);
-  main.insertAdjacentHTML("beforeend", rawHTML);
+  main.insertAdjacentHTML("afterbegin", rawHTML);
   document.body.appendChild(main);
-
-  let coinlist = document.getElementsByClassName("coinlist")[0].children;
-  for (let i = 0; i < coinlist.length; i++) {
-    let id = coinlist[i].id;
-    coinlist[i].addEventListener("click", function(e) {
-      clickCash(i, id);
-    });
-  }
+  let mainElement = document.body.children[2];
+  mainElement.setAttribute("id", "overview");
 }
 
-function clickCash(i, id) {
-  let coinElement = document.getElementById(id);
-  if (coinElement.className === "open") {
-    console.log("closing " + id);
-    coinElement.classList.toggle("open");
-    let coinCanvas = document.getElementById(id + "Canvas");
-    coinCanvas.parentNode.removeChild(coinCanvas);
-    return;
-  }
+function getSpecificCoin(id) {
+  let key = "9d6d39b44ce2c90274169966fe79fe681cc7e97016d062449ebaa6631e17758e";
+  let currency = "EUR";
+  let coin = id;
+  let time = "7"; //Amount of data being sent. CUrrently 7 for 7 days of the week.
+  let url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${coin}&tsym=${currency}&limit=${time}&api-key=${key}`;
 
-  console.log("opening " + id);
-  coinElement.classList.toggle("open");
-  getSpecificCoin(id);
-}
-
-function getSpecificCoin(coin) {
-  getMoney(
-    "GET",
-    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${coin}&tsym=EUR&limit=7&api-key=9d6d39b44ce2c90274169966fe79fe681cc7e97016d062449ebaa6631e17758e`
-  )
-    .then(function(e) {
+  getMoney("GET", url)
+    .then(e => {
       const data = JSON.parse(e.target.response);
-      buildCanvas(coin, data.Data.Data);
+      makeDetail(coin, data.Data.Data);
     })
     .catch(error => {
       errorHandler();
     });
 }
 
-function buildCanvas(coin, data) {
-  let coinli = document.getElementById(coin);
-  let coinCanvas = document.createElement("canvas");
-  coinCanvas.setAttribute("id", coin + "Canvas");
-  coinli.parentElement.insertBefore(coinCanvas, coinli.nextSibling);
+function makeDetail(coin, data) {
+  console.log("hey");
+  if (document.body.children[2].id === "overview") {
+    let mainElement = getElementById("overview");
+    document.body.removeChild(mainElement);
+  }
+}
 
-  let timeArray = data.map(function(data) {
-    let time = new Date(data.time * 1000).toISOString();
-    return time;
-  });
+/*
+function buildCanvas(coin, data) {
+  //Dit is een map geschreven als een reduce
+  let timeArray2 = data.reduce(function(acc, datapoint) {
+    let time = new Date(datapoint.time * 1000).toISOString();
+    acc.push(time);
+    return acc;
+  }, []);
 
   let priceArray = data.map(function(data) {
     let price = (data.high + data.low) / 2;
     price = Number(price).toFixed(5);
     return price;
   });
-  console.log(data);
+
   let allArray = data.map(function(data) {
     let price = (data.high + data.low) / 2;
     price = Number(price).toFixed(5);
@@ -164,12 +172,5 @@ function buildCanvas(coin, data) {
       y: price
     };
   });
-
-  console.log(timeArray);
-  console.log(priceArray);
-  console.log(allArray);
-
-  let ctx = document.getElementById(coin + "Canvas");
 }
-
-wheresTheMoneyLebowski();
+*/
