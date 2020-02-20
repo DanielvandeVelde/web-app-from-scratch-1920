@@ -68,11 +68,12 @@ Currently this is more a to-do list for the upcoming week :-)
 - [ ] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
 - [ ] Searchbar
 - [x] Working routie (routes)
-- [ ] Actual details page
+- [ ] Actual details page & back button
 - [ ] Page for big winners/losers (using .filter())
-- [ ] Modules
+- [x] Modules
 - [ ] Recheck rubric if everything is there
 - [ ] Create graphs on detailspage
-- [ ] Maybe find/use a single API?
+- [ ] Maybe use a single API?
 - [ ] Loading state and/or skeleton
+- [ ] Errorhandler
 - [ ] Actually making money from crypto
