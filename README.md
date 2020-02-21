@@ -65,15 +65,15 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] Data
 - [x] localStorage
 - [x] semi-details
-- [ ] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
-- [ ] Searchbar
+- [x] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
+- [x] Searchbar
 - [x] Working routie (routes)
-- [ ] Actual details page & back button
+- [x] Actual details page & back button
 - [ ] Page for big winners/losers (using .filter())
 - [x] Modules
 - [ ] Recheck rubric if everything is there
-- [ ] Create graphs on detailspage
-- [ ] Maybe use a single API?
+- [x] Create graphs on detailspage
+- [ ] Rewrite a bunch of code
 - [ ] Loading state and/or skeleton
 - [ ] Errorhandler
 - [ ] Actually making money from crypto

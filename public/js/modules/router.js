@@ -3,22 +3,20 @@ import { data } from "./data.js";
 import { render } from "./render.js";
 
 export let router = routie({
-  "coin/:coin": function(coin) {
-    // Specific coin, thus detailpage
-    console.log("detail");
-  },
-  "": async function() {
-    // If nothing then overview
-    console.log("overview");
-
+  "": async () => {
+    // Standard overview but not on wrong routes so no: '*'
     if (localStorage.getItem("topCryptoCoins") === null) {
-      console.log("There's nothing here");
-      let response = await api.homepage();
-      let coins = await data.fromStorage();
-      let overview = render.main(coins);
+      // Make api call, wait for the data to be cleaned and sent back and then push to render
+      let response = await api.getMarket();
+      await render.overview(response);
     } else {
+      // Grab data from storage and push to render
       let coins = await data.fromStorage();
-      let overview = render.main(coins);
+      await render.overview(coins);
     }
+  },
+  "coin/:coin": async coin => {
+    let response = await api.getCoin(coin);
+    await render.detail(response, coin);
   }
 });
