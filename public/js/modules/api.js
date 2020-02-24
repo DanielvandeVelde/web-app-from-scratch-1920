@@ -1,6 +1,16 @@
 import { data } from "./data.js";
+import { render } from "./render.js";
 
 export let api = {
+  check: async overview => {
+    if (localStorage.getItem("topCryptoCoins") === null) {
+      let coins = await api.getMarket();
+      let renderData = overview ? render.overview(coins) : data.toplist(coins);
+    } else {
+      let coins = await data.fromStorage();
+      let renderData = overview ? render.overview(coins) : data.toplist(coins);
+    }
+  },
   getMarket: async () => {
     let key = "4921adba-8213-4159-950e-35edf261684a";
     let currency = "EUR";

@@ -9,12 +9,11 @@ export let render = {
     }
   },
   overview: coins => {
-    render.check();
     let main = document.createElement("main"),
       mainheader = document.createElement("h1"),
       rawHTML = "<ul class='coinlist'>";
 
-    coins.forEach(coin => {
+    coins.map(coin => {
       let listitem = `<li>
           <a href="#coin/${coin.abbreviation}">
           <ul class="coin">
@@ -48,7 +47,6 @@ export let render = {
     document.body.setAttribute("id", "overview");
   },
   detail: (coin, id) => {
-    render.check();
     let main = document.createElement("main"),
       section = document.createElement("section"),
       mainheader = document.createElement("h1");
@@ -82,10 +80,8 @@ export let render = {
     });
     let ctx = document.getElementById(canvasID).getContext("2d");
     let chart = new Chart(ctx, {
-      // The type of chart we want to create
       type: "line",
 
-      // The data for our dataset
       data: {
         labels: timeArray,
         datasets: [
@@ -99,7 +95,6 @@ export let render = {
         ]
       },
 
-      // Configuration options go here
       options: {
         legend: {
           display: false
@@ -128,7 +123,7 @@ export let render = {
 
     let rawHTML = `<ul>
     <li><a href=""></a></li>
-    <form><input type="text" placeholder="Ticker (e.g. BTC or ETH)"/></form></li><li><a href="">Winners</a></li><li><a href="">Losers</a></li><li></ul>`;
+    <form><input type="text" placeholder="Ticker (e.g. BTC or ETH)"/></form></li><li><a href="#top">Best/worst</a></li></ul>`;
 
     navbar.insertAdjacentHTML("afterbegin", rawHTML);
     document.body.appendChild(navbar);
@@ -138,5 +133,32 @@ export let render = {
       let inputValue = e.target[0].value;
       window.location.replace("#coin/" + inputValue);
     });
+  },
+  toplist: (minimum, maximum) => {
+    console.log(minimum);
+    console.log(maximum);
+
+    let main = document.createElement("main"),
+      mainheader = document.createElement("h1");
+    mainheader.innerText = "Best and worst";
+    let rawHTML = `<section class='pos'><a href="#coin/${maximum.abbreviation}">
+        <h2>${maximum.name}</h2>
+        <h3>${maximum.day}%</h3>
+        <p>That's the best percentage gain in the last 24 hours. <br/>
+        The price of ${maximum.name} is now: <span>€${maximum.price}</span>.</p>
+      </a></section>
+      <section class='neg'>
+        <a href="#coin/${minimum.abbreviation}">
+        <h2>${minimum.name}</h2>
+        <h3>${minimum.day}%</h3>
+        <p>That's the worst percentage loss in the last 24 hours. <br/>
+        The price of ${minimum.name} is now: <span>€${minimum.price}</span>.</p>
+      </a></section>`;
+
+    main.appendChild(mainheader);
+    main.insertAdjacentHTML("beforeend", rawHTML);
+    document.body.appendChild(main);
+    let mainElement = document.getElementsByTagName("main")[0];
+    document.body.setAttribute("id", "toplist");
   }
 };

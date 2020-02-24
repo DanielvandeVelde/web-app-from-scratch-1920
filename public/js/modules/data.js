@@ -1,3 +1,5 @@
+import { render } from "./render.js";
+
 export let data = {
   toStorage: rawData => {
     console.log("Coins set in storage");
@@ -32,7 +34,7 @@ export let data = {
     let dataStuff = rawData.Data.Data;
     let allArray;
 
-    allArray = dataStuff.map(function(coin) {
+    allArray = dataStuff.map(coin => {
       let price = (coin.high + coin.low) / 2;
       price = Number(price).toFixed(5);
       let time = new Date(coin.time * 1000).toLocaleDateString(undefined, {
@@ -45,5 +47,21 @@ export let data = {
       };
     });
     return allArray;
+  },
+  toplist: cleanData => {
+    //Without curly brackets
+    let maximum = cleanData.reduce((max, coin) =>
+      max.day > coin.day ? max : coin
+    );
+
+    //And a different way so I can show off .filter()
+    let minimumValue = cleanData.reduce((min, coin) => {
+      return Math.min(coin.day, min);
+    }, Infinity);
+    let minimum = cleanData.filter(coin => {
+      return coin.day == minimumValue;
+    });
+
+    render.toplist(minimum[0], maximum);
   }
 };

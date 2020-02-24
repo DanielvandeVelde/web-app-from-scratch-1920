@@ -4,19 +4,18 @@ import { render } from "./render.js";
 
 export let router = routie({
   "": async () => {
-    // Standard overview but not on wrong routes so no: '*'
-    if (localStorage.getItem("topCryptoCoins") === null) {
-      // Make api call, wait for the data to be cleaned and sent back and then push to render
-      let response = await api.getMarket();
-      await render.overview(response);
-    } else {
-      // Grab data from storage and push to render
-      let coins = await data.fromStorage();
-      await render.overview(coins);
-    }
+    render.check();
+    api.check(true);
+  },
+  top: async list => {
+    render.check();
+    api.check(false);
   },
   "coin/:coin": async coin => {
+    render.check();
     let response = await api.getCoin(coin);
     await render.detail(response, coin);
   }
 });
+
+// Check what? More precise naming, I think
