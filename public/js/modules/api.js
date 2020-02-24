@@ -36,6 +36,10 @@ export let api = {
     hourResponse = await hourResponse.json();
     let cleanDayCoin = await data.cleanCoin(dayResponse);
     let cleanHourCoin = await data.cleanCoin(hourResponse);
-    return [cleanDayCoin, cleanHourCoin];
+    let coinData = {
+      day: cleanDayCoin,
+      hour: cleanHourCoin
+    };
+    return coinData;
   }
 };
