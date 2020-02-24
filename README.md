@@ -69,11 +69,12 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] Searchbar
 - [x] Working routie (routes)
 - [x] Actual details page & back button
-- [ ] Page for big winners/losers (using .filter())
+- [x] Page for big winner/loser (using .filter())
 - [x] Modules
 - [ ] Recheck rubric if everything is there
 - [x] Create graphs on detailspage
-- [ ] Rewrite a bunch of code
-- [ ] Loading state and/or skeleton
+- [x] Rewrite a bunch of code
+- [x] "loading state"
+- [ ] Virtual DOM
 - [ ] Errorhandler
 - [ ] Actually making money from crypto
