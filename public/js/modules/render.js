@@ -135,9 +135,6 @@ export let render = {
     });
   },
   toplist: (minimum, maximum) => {
-    console.log(minimum);
-    console.log(maximum);
-
     let main = document.createElement("main"),
       mainheader = document.createElement("h1");
     mainheader.innerText = "Best and worst";
