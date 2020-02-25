@@ -128,7 +128,7 @@ export let render = {
     let navbar = document.createElement("nav");
 
     let rawHTML = `<ul>
-    <li><a href=""></a></li>
+    <li><a href="#"></a></li>
     <form><input type="text" placeholder="Ticker (e.g. BTC or ETH)"/></form></li><li><a href="#top">Best/worst</a></li></ul>`;
 
     navbar.insertAdjacentHTML("afterbegin", rawHTML);
