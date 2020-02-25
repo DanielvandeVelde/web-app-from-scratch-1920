@@ -3,13 +3,17 @@ import { render } from "./render.js";
 export let data = {
   toStorage: rawData => {
     console.log("Coins set in storage");
-    //Maybe also set a date here?
+    //Maybe also set a date here with Date.now()
     localStorage.setItem("topCryptoCoins", JSON.stringify(rawData));
   },
   fromStorage: () => {
     console.log("Coins out of storage");
-    //Check date after grabbing them, maybe new request needed?
     let coins = JSON.parse(localStorage.getItem("topCryptoCoins"));
+    /*
+    if((Date.now() - coins.time) / 1000 / 60 > 30) {
+      //Check if older than 30 minutes
+    }
+    */
     return coins;
   },
   cleanMarket: rawData => {

@@ -25,6 +25,12 @@ But most of all; making something that's actually usable and a cool portfolio pr
 
 ## 2. Installation
 
+You can clone this repository and then run `index.html`.
+
+`git clone https://github.com/danielvandevelde/web-app-from-scratch-1920.git`
+
+I do advise using a live-server of some sort.
+
 ## 3. Actors
 
 <kbd>![Actor Diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/actor.svg?sanitize=true "Actor diagram")</kbd>
@@ -48,15 +54,106 @@ The free plan is limited in [several ways](https://pro.coinmarketcap.com/feature
 To grab the data for the mainpage which is currently 50 different coins with their price and the percentage changes in the past week or so the API requires 1 credit.
 This means in total I can request this data for the mainpage 300 times in a day before running out of credits.
 
-### Specific coin data
+I'm using their latest listings endpoint which has most of the big cryptocoins.
 
-For the historical data of a specific coin I'm using [CryptoCompare](https://min-api.cryptocompare.com/).  
-This is one of the few APIs I found that lets you call on specific coin data over a period of about a year without a need to pay for it.
-I will probably switch over to this one in the long run since the `/top list` endpoint also provides the needed data for the overview but only for the past 24 hours.
+### Coin data
+
+For the specific coin prices and historical data I'm using [CryptoCompare](https://min-api.cryptocompare.com/documentation)'s API.  
+CryptoCompare is one of the few API's I could find that provides historical data for coins which I could use to make some more interesting detail pages.  
+The free plan that they offer has various [limits](https://min-api.cryptocompare.com/pricing) of which the most important:
+
+- 50.000 request a day limit
+- 2.500 request a minute
+- Full hourly and daily historical data
+- Data for every minute for the past 7 days!
+
+I'm using their daily and hourly history endpoints: histohour and histoday.
 
 ## 6. Data
 
-What I do and use.
+### CryptoCompare history
+
+<details>
+ <summary>Example of data</summary>
+ ```js
+ {
+ Response: "Succes",
+ Message: "", //Empty string
+ HasWarning: false,
+ Type: Number, //100
+ Ratelimit: {}, //Empty object
+ Data: {
+   Aggregated: false,
+   TimeFrom: Number, //Epoch
+   TimeTo: Number, // Epoch
+   Data: [
+     i: {
+       time: Number,
+       high: Number,
+       low: Number,
+       open: Number,
+       volumefrom: Number,
+       volumeto: Number,
+       close: Number,
+       conversationType: "direct",
+       conversionSumbol: "" //Empty string
+     }
+   ]
+   }
+ }
+ ```
+</details>
+
+### CoinMarketCap
+
+<details>
+<summary>Example of data</summary>
+
+```js
+{
+  data: [
+    i: {
+      circulating_supply: Number,
+      cmc_rank: Number, //CoinMarketCap ranking
+      date_added: "", //ISO 8601
+      id: Number, //Bitcoin = 1, etc.
+      last_updated: "", //ISO 8601
+      max_supply: Number,
+      name: "Coin name", //e.g. Bitcoin, Ethereum, Litecoin
+      num_market_pairs: Number,
+      patform: null,
+      quote: {
+        EUR: {
+          last_updated: "", //ISO 8601
+          market_cap: Number,
+          percent_change_1h: Number,
+          percent_change_24h: Number,
+          percent_change_7d: Number,
+          price: Number,
+          volume_24h: Number
+        },
+        volume_24: Number,
+        percent_change_1h: Number
+      },
+      slug: "Coin name", //e.g. Bitcoin, Ethereum, Litecoin
+      symbol: "ticker", //e.g. BTC, ETH, LTC
+      tags: [ "minable"],
+      total_supply: Number
+    }
+],
+status: {
+credit_count: Number, //Amount of credits used for request
+elapsed: Number, //Time in ms
+error_code Number, //0 if no errorcode
+error_message: null, //Unless there is one, then string.
+notice: null,
+timestamp: "",//ISO 8601
+}
+}
+
+```
+
+</details>
 
 ## 7. Wishlist
 
@@ -64,16 +161,14 @@ Currently this is more a to-do list for the upcoming week :-)
 
 - [x] Data
 - [x] localStorage
-- [x] semi-details
 - [x] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
 - [x] Searchbar
 - [x] Working routie (routes)
-- [x] Actual details page & back button
+- [x] Detailspage, graphs & back button
 - [x] Page for big winner/loser (using .filter())
 - [x] Modules
-- [ ] Recheck rubric if everything is there
-- [x] Create graphs on detailspage
-- [x] Rewrite a bunch of code
+- [ ] Update interaction + actor diagram
+- [ ] Update readme
 - [x] "loading state"
 - [ ] Virtual DOM
 - [ ] Errorhandler
