@@ -115,7 +115,8 @@ export let render = {
             {
               ticks: {
                 callback: function(value, index, values) {
-                  return "€" + value;
+                  let fixed = value.toFixed(2);
+                  return "€" + fixed;
                 }
               }
             }

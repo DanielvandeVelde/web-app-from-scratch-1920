@@ -168,7 +168,7 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] Detailspage, graphs & back button
 - [x] Modules
 - [x] Page for big winner/loser (using .filter())
-- [ ] Update interaction + actor diagram
+- [x] Update interaction + actor diagram
 - [x] "loading state"
 - [ ] Virtual DOM
 - [ ] Errorhandler
