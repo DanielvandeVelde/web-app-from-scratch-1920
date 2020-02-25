@@ -110,6 +110,12 @@ nav form input {
   color: goldenrod;
 }
 
+#toplist section:hover a {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 0.25s;
+  cursor: pointer;
+}
+
 #toplist section {
   background-color: #474a51;
   text-align: center;
@@ -128,6 +134,8 @@ nav form input {
   color: white;
   text-decoration: none;
   padding: 1em;
+  display: block;
+  background-color: #474a51;
 }
 
 #toplist p span {
@@ -140,7 +148,8 @@ nav form input {
   font-size: 2em;
 }
 
-#toplist .pos {
+#toplist .pos,
+#toplist .pos a {
   border-radius: 1em 1em 0 0;
 }
 
@@ -153,7 +162,8 @@ nav form input {
   font-size: 2em;
 }
 
-#toplist .neg {
+#toplist .neg,
+#toplist .neg a {
   border-radius: 0 0 1em 1em;
 }
 
