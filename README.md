@@ -75,33 +75,35 @@ I'm using their daily and hourly history endpoints: histohour and histoday.
 
 <details>
  <summary>Example of data</summary>
- ```js
- {
-   Response: "Succes",
-   Message: "", //Empty string
-   HasWarning: false,
-   Type: Number, //100
-   Ratelimit: {}, //Empty object
-   Data: {
-     Aggregated: false,
-     TimeFrom: Number, //Epoch
-     TimeTo: Number, // Epoch
-     Data: [
-       i: {
-         time: Number,
-         high: Number,
-         low: Number,
-         open: Number,
-         volumefrom: Number,
-         volumeto: Number,
-         close: Number,
-         conversationType: "direct",
-         conversionSumbol: "" //Empty string
-       }
-      ]
-     }
- }
- ```
+
+```js
+{
+  Response: "Succes",
+  Message: "", //Empty string
+  HasWarning: false,
+  Type: Number, //100
+  Ratelimit: {}, //Empty object
+  Data: {
+    Aggregated: false,
+    TimeFrom: Number, //Epoch
+    TimeTo: Number, // Epoch
+    Data: [
+      i: {
+        time: Number,
+        high: Number,
+        low: Number,
+        open: Number,
+        volumefrom: Number,
+        volumeto: Number,
+        close: Number,
+        conversationType: "direct",
+        conversionSumbol: "" //Empty string
+      }
+    ]
+  }
+}
+```
+
 </details>
 
 ### CoinMarketCap
@@ -150,7 +152,6 @@ I'm using their daily and hourly history endpoints: histohour and histoday.
   timestamp: "",//ISO 8601
   }
 }
-
 ```
 
 </details>
