@@ -163,13 +163,12 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] Data
 - [x] localStorage
 - [x] Change to fetch[?](https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/)
-- [x] Searchbar
 - [x] Working routie (routes)
+- [x] Searchbar
 - [x] Detailspage, graphs & back button
-- [x] Page for big winner/loser (using .filter())
 - [x] Modules
+- [x] Page for big winner/loser (using .filter())
 - [ ] Update interaction + actor diagram
-- [x] Update readme
 - [x] "loading state"
 - [ ] Virtual DOM
 - [ ] Errorhandler
