@@ -6,17 +6,12 @@ export let data = {
     //Maybe also set a date here with Date.now()
     localStorage.setItem("topCryptoCoins", JSON.stringify(rawData));
   },
-  fromStorage: () => {
+  fromStorage: overview => {
     console.log("Coins out of storage");
     let coins = JSON.parse(localStorage.getItem("topCryptoCoins"));
-    /*
-    if((Date.now() - coins.time) / 1000 / 60 > 30) {
-      //Check if older than 30 minutes
-    }
-    */
-    return coins;
+    overview ? render.overview(coins) : data.toplist(coins);
   },
-  cleanMarket: rawData => {
+  cleanMarket: (rawData, overview) => {
     const cleanData = rawData.data.map(coin => {
       let price = Number(coin.quote.EUR.price).toFixed(2);
       price = price.replace(".", ",");
@@ -32,13 +27,14 @@ export let data = {
       };
     });
     data.toStorage(cleanData);
-    return cleanData;
+    overview ? render.overview(cleanData) : data.toplist(cleanData);
   },
-  cleanCoin: rawData => {
-    let dataStuff = rawData.Data.Data;
+  cleanCoin: (rawData, abbreviation) => {
+    let dayData = rawData.day.Data.Data,
+      hourData = rawData.hour.Data.Data;
     let allArray;
 
-    allArray = dataStuff.map(coin => {
+    let cleanDay = dayData.map(coin => {
       let price = (coin.high + coin.low) / 2;
       price = Number(price).toFixed(5);
       let time = new Date(coin.time * 1000).toLocaleDateString(undefined, {
@@ -50,7 +46,27 @@ export let data = {
         y: price
       };
     });
-    return allArray;
+
+    let cleanHour = hourData.map(coin => {
+      let price = (coin.high + coin.low) / 2;
+      price = Number(price).toFixed(5);
+      let time = new Date(coin.time * 1000).toLocaleDateString(undefined, {
+        hour: "numeric",
+        minute: "2-digit"
+      });
+      return {
+        t: time,
+        y: price
+      };
+    });
+
+    let renderData = {
+      hour: cleanHour,
+      day: cleanDay,
+      week: cleanDay.slice(24, 31)
+    };
+
+    render.detail(renderData, abbreviation);
   },
   toplist: cleanData => {
     //Without curly brackets

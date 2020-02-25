@@ -1,17 +1,14 @@
 import { data } from "./data.js";
-import { render } from "./render.js";
 
 export let api = {
-  check: async overview => {
+  check: overview => {
     if (localStorage.getItem("topCryptoCoins") === null) {
-      let coins = await api.getMarket();
-      let renderData = overview ? render.overview(coins) : data.toplist(coins);
+      api.getMarket(overview);
     } else {
-      let coins = await data.fromStorage();
-      let renderData = overview ? render.overview(coins) : data.toplist(coins);
+      data.fromStorage(overview);
     }
   },
-  getMarket: async () => {
+  getMarket: async overview => {
     let key = "4921adba-8213-4159-950e-35edf261684a";
     let currency = "EUR";
     let cors = "https://cors-anywhere.herokuapp.com/";
@@ -22,8 +19,7 @@ export let api = {
 
     let response = await fetch(url);
     response = await response.json();
-    let coins = await data.cleanMarket(response);
-    return coins;
+    data.cleanMarket(response, overview);
   },
   getCoin: async coin => {
     // coin = parameter
@@ -44,12 +40,11 @@ export let api = {
 
     dayResponse = await dayResponse.json();
     hourResponse = await hourResponse.json();
-    let cleanDayCoin = await data.cleanCoin(dayResponse);
-    let cleanHourCoin = await data.cleanCoin(hourResponse);
     let coinData = {
-      day: cleanDayCoin,
-      hour: cleanHourCoin
+      day: dayResponse,
+      hour: hourResponse
     };
-    return coinData;
+
+    data.cleanCoin(coinData, coin);
   }
 };

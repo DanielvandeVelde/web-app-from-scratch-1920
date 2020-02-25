@@ -57,14 +57,9 @@ export let render = {
     let mainElement = document.getElementsByTagName("main")[0];
     document.body.setAttribute("id", "detail");
 
-    let dayData = coin.day,
-      hourData = coin.hour,
-      weekData = dayData.slice(24, 31),
-      monthData = dayData;
-
-    render.chart(hourData, "24 hours", "day");
-    render.chart(weekData, "7 days", "week");
-    render.chart(dayData, "30 days", "month");
+    render.chart(coin.hour, "24 hours", "day");
+    render.chart(coin.week, "7 days", "week");
+    render.chart(coin.day, "30 days", "month");
   },
   chart: (coin, time, id) => {
     let sectionElement = document.getElementsByTagName("section")[0],
