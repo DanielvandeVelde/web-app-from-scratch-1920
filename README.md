@@ -77,29 +77,29 @@ I'm using their daily and hourly history endpoints: histohour and histoday.
  <summary>Example of data</summary>
  ```js
  {
- Response: "Succes",
- Message: "", //Empty string
- HasWarning: false,
- Type: Number, //100
- Ratelimit: {}, //Empty object
- Data: {
-   Aggregated: false,
-   TimeFrom: Number, //Epoch
-   TimeTo: Number, // Epoch
-   Data: [
-     i: {
-       time: Number,
-       high: Number,
-       low: Number,
-       open: Number,
-       volumefrom: Number,
-       volumeto: Number,
-       close: Number,
-       conversationType: "direct",
-       conversionSumbol: "" //Empty string
+   Response: "Succes",
+   Message: "", //Empty string
+   HasWarning: false,
+   Type: Number, //100
+   Ratelimit: {}, //Empty object
+   Data: {
+     Aggregated: false,
+     TimeFrom: Number, //Epoch
+     TimeTo: Number, // Epoch
+     Data: [
+       i: {
+         time: Number,
+         high: Number,
+         low: Number,
+         open: Number,
+         volumefrom: Number,
+         volumeto: Number,
+         close: Number,
+         conversationType: "direct",
+         conversionSumbol: "" //Empty string
+       }
+      ]
      }
-   ]
-   }
  }
  ```
 </details>
@@ -140,15 +140,15 @@ I'm using their daily and hourly history endpoints: histohour and histoday.
       tags: [ "minable"],
       total_supply: Number
     }
-],
-status: {
-credit_count: Number, //Amount of credits used for request
-elapsed: Number, //Time in ms
-error_code Number, //0 if no errorcode
-error_message: null, //Unless there is one, then string.
-notice: null,
-timestamp: "",//ISO 8601
-}
+  ],
+  status: {
+  credit_count: Number, //Amount of credits used for request
+  elapsed: Number, //Time in ms
+  error_code Number, //0 if no errorcode
+  error_message: null, //Unless there is one, then string.
+  notice: null,
+  timestamp: "",//ISO 8601
+  }
 }
 
 ```
@@ -168,7 +168,7 @@ Currently this is more a to-do list for the upcoming week :-)
 - [x] Page for big winner/loser (using .filter())
 - [x] Modules
 - [ ] Update interaction + actor diagram
-- [ ] Update readme
+- [x] Update readme
 - [x] "loading state"
 - [ ] Virtual DOM
 - [ ] Errorhandler
