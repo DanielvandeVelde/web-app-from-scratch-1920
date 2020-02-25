@@ -3,15 +3,15 @@ import { render } from "./render.js";
 
 export let router = routie({
   "": () => {
-    render.check();
-    api.check(true);
+    render.removeMain();
+    api.checkStorage(true);
   },
   top: list => {
-    render.check();
-    api.check(false);
+    render.removeMain();
+    api.checkStorage(false);
   },
   "coin/:coin": coin => {
-    render.check();
+    render.removeMain();
     api.getCoin(coin);
   }
 });

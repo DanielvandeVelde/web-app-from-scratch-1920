@@ -9,7 +9,7 @@ export let data = {
   fromStorage: overview => {
     console.log("Coins out of storage");
     let coins = JSON.parse(localStorage.getItem("topCryptoCoins"));
-    overview ? render.overview(coins) : data.toplist(coins);
+    overview ? render.overview(coins) : data.bestWorst(coins);
   },
   cleanMarket: (rawData, overview) => {
     const cleanData = rawData.data.map(coin => {
@@ -27,48 +27,40 @@ export let data = {
       };
     });
     data.toStorage(cleanData);
-    overview ? render.overview(cleanData) : data.toplist(cleanData);
+    overview ? render.overview(cleanData) : data.bestWorst(cleanData);
+  },
+  createGraphPoints: (cleanedData, options) => {
+    let graphData = cleanedData.map(coin => {
+      let price = (coin.high + coin.low) / 2;
+      price = Number(price).toFixed(5);
+      let time = new Date(coin.time * 1000).toLocaleDateString(
+        undefined,
+        options
+      );
+      return {
+        t: time,
+        y: price
+      };
+    });
+    return graphData;
   },
   cleanCoin: (rawData, abbreviation) => {
     let dayData = rawData.day.Data.Data,
-      hourData = rawData.hour.Data.Data;
-    let allArray;
-
-    let cleanDay = dayData.map(coin => {
-      let price = (coin.high + coin.low) / 2;
-      price = Number(price).toFixed(5);
-      let time = new Date(coin.time * 1000).toLocaleDateString(undefined, {
+      hourData = rawData.hour.Data.Data,
+      hourOptions = {
         hour: "numeric",
         minute: "2-digit"
-      });
-      return {
-        t: time,
-        y: price
       };
-    });
 
-    let cleanHour = hourData.map(coin => {
-      let price = (coin.high + coin.low) / 2;
-      price = Number(price).toFixed(5);
-      let time = new Date(coin.time * 1000).toLocaleDateString(undefined, {
-        hour: "numeric",
-        minute: "2-digit"
-      });
-      return {
-        t: time,
-        y: price
-      };
-    });
-
-    let renderData = {
-      hour: cleanHour,
-      day: cleanDay,
-      week: cleanDay.slice(24, 31)
+    let graphData = {
+      hour: data.createGraphPoints(hourData, hourOptions),
+      day: data.createGraphPoints(dayData),
+      week: data.createGraphPoints(dayData).slice(24, 31)
     };
 
-    render.detail(renderData, abbreviation);
+    render.detail(graphData, abbreviation);
   },
-  toplist: cleanData => {
+  bestWorst: cleanData => {
     //Without curly brackets
     let maximum = cleanData.reduce((max, coin) =>
       max.day > coin.day ? max : coin
@@ -82,6 +74,6 @@ export let data = {
       return coin.day == minimumValue;
     });
 
-    render.toplist(minimum[0], maximum);
+    render.bestWorst(minimum[0], maximum);
   }
 };

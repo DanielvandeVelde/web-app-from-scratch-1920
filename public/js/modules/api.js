@@ -1,7 +1,7 @@
 import { data } from "./data.js";
 
 export let api = {
-  check: overview => {
+  checkStorage: overview => {
     if (localStorage.getItem("topCryptoCoins") === null) {
       api.getMarket(overview);
     } else {

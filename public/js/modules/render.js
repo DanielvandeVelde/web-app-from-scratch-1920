@@ -1,5 +1,5 @@
 export let render = {
-  check: () => {
+  removeMain: () => {
     if (document.getElementsByTagName("main")[0]) {
       let main = document.getElementsByTagName("main")[0];
       document.body.removeChild(main);
@@ -109,7 +109,18 @@ export let render = {
               labelString: "Date"
             }
           }
-        ]
+        ],
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                callback: function(value, index, values) {
+                  return "€" + value;
+                }
+              }
+            }
+          ]
+        }
       }
     });
   },
@@ -129,7 +140,7 @@ export let render = {
       window.location.replace("#coin/" + inputValue);
     });
   },
-  toplist: (minimum, maximum) => {
+  bestWorst: (minimum, maximum) => {
     let main = document.createElement("main"),
       mainheader = document.createElement("h1");
     mainheader.innerText = "Best and worst";
