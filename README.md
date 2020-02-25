@@ -37,7 +37,7 @@ I do advise using a live-server of some sort.
 
 ## 4. Interaction
 
-<kbd>![Interaction diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/Interaction.svg?sanitize=true "Interaction diagram")</kbd>
+<kbd>![Interaction diagram](https://raw.githubusercontent.com/DanielvandeVelde/web-app-from-scratch-1920/master/public/img/interaction.svg?sanitize=true "interaction diagram")</kbd>
 
 ## 5. API
 
